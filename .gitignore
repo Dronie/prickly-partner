@@ -1,0 +1,16 @@
+# Virtual environments
+.venv/
+venv/
+
+# Python-generated files
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Test output
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Operating-system files
+.DS_Store

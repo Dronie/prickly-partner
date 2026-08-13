@@ -1,0 +1,81 @@
+# First give the workflow a name
+name: CI
+# This is what shows up on the repo's 'Actions' tab
+
+# Triggers:
+# The 'on' section specifies which events start the
+# workflow
+on:
+  push:
+    branches:
+      # This specifies that the workflow should start
+      # when a commit is pushed to the main branch
+      - main
+  pull_request:
+    branches:
+      # This runs the workflow when a pull request 
+      # tries to merge with main
+      - main
+  # This adds a run workflow button in github's actions interface
+  # aka a manual trigger.
+  workflow_dispatch: # Note colon required!
+
+# GitHub gives each workflow a temp auth token.
+# This specifies what that token allows.
+permissions:
+  # this means that the workflow can download the repo
+  # contents only. (can't modify the repo with this e.g.)
+  contents: read
+
+# Concurrency controls what happens when multiple copies of the
+# workflow are running
+concurrency:
+  # ${{ ... }} is GitHub Actions' expression syntax
+  # github.ref identifies the branch or pull that caused the run
+  group: ci-${{ github.ref }}
+  # this cancels in progress commits, prioritising the latest commit,
+  # saving the runner time.
+  # It's useful for tests but may not be for deployment workflows 
+  # where every opertaion must complete
+  cancel-in-progress: true
+
+# these are the actual jobs for the workflow.
+# Note: jobs run concurrently by default!
+# can use 'needs' to declare if a job is dependent on another job
+jobs:
+  # test is the only job in this workflow.
+  # 'test' is a machine readable identifier!
+  test:
+    #name: env tests # if you want to name the tests do it here
+    runs-on: ubuntu-latest # create a fresh ubuntu vm for the job
+    timeout-minutes: 20 # time the job out after 20 mins
+
+    env: # setting environment variables
+      JAX_PLATFORM_NAME: cpu # force JAX to use the cpu
+      SDL_VIDEODRIVER: dummy # pygame expects a display - set this to dummy so that pygame can init in memory regardless
+      PYGAME_HIDE_SUPPORT_PROMPT: "1" # suppress pygame welcome message
+    
+    # these are the steps of the job (executed sequentially)
+    steps: 
+      - name: Download repo
+        # 'uses' specifies that this step involves a GitHub Action rather than a shell command
+        uses: actions/checkout@v6 # checkout downloads the relvent repo revision onto the runner. @v6 selects version 6 of the aciton
+        
+        # this step uses the setup-python action to install python
+      - name: Install Python
+        uses: actions/setup-python@v6
+        with: # 'with' supplies the arguments to the action.
+          python-version: "3.10"
+          cache: pip # this ensures that installed dependencies are chached inbetween workflows
+          cache-dependency-path: pyproject.toml # if this file changes, create a new cache
+
+      - name: Install game
+        run: | # 'run' indicates using shell commands. | indicates a multiline YAML string 
+          python -m pip install --upgrade pip
+          python -m pip install -e ."[test]"
+
+      - name: Check syntax
+        run: python -m py_compile coin_game.py
+
+      - name: Run tests
+        run: pytest -q
