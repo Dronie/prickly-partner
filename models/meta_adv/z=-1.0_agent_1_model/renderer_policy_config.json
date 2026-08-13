@@ -1,0 +1,17 @@
+{
+  "action_dim": 5,
+  "activation": "relu",
+  "actor_hidden_layers": 2,
+  "checkpoint_family": "coin_game_punish_z",
+  "cnn": false,
+  "critic_hidden_layers": 2,
+  "egocentric": false,
+  "env_name": "coin_game",
+  "format_version": 1,
+  "history_k": 0,
+  "network_type": "modular_actor_critic",
+  "obs_mode": "base_plus_opponent_id",
+  "observation_dim": 100,
+  "opponent_id_dim": 10,
+  "policy_input_dim": 110
+}

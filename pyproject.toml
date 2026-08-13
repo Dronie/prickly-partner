@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "prickly-partner"
+version = "0.1.0"
+description = "Game about a prockly partner"
+requires-python = ">=3.10"
+dependencies = [
+  "chex==0.1.88",
+  "distrax==0.1.5",
+  "flax==0.10.3",
+  "jax==0.4.38",
+  "jaxlib==0.4.38",
+  "numpy==1.26.4",
+  "optax==0.2.4",
+  "orbax-checkpoint",
+  "pygame>=2.5",
+]
+
+[tool.setuptools]
+py-modules = ["coin_game"]
+
+[project.optional-dependencies]
+test = [
+  "pytest>=8,<9",
+]
