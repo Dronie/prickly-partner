@@ -4,6 +4,10 @@ from os.path import abspath
 from pathlib import Path
 from pprint import pprint
 
+# remove cli warning alerts
+from absl import logging
+logging.set_verbosity(logging.ERROR)
+
 import jax
 import jax.numpy as jnp
 from flax.training import checkpoints
@@ -15,6 +19,8 @@ import optax
 import numpy as np
 
 from coin_game import CoinGame
+
+root_dir = Path(__file__).resolve().parent.parent
 
 # process model path
 modelPathS = "".join(sys.argv[-1])
@@ -224,5 +230,7 @@ np.testing.assert_allclose(
 )
 
 # finally, save the model
-save(onnx_model, modelName+".onnx")
+output_path = Path(f"{root_dir}/web/models/{modelName}.onnx")
+output_path.parent.mkdir(parents=True, exist_ok=True)
+save(onnx_model, output_path)
 

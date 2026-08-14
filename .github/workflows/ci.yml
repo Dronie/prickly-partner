@@ -75,7 +75,9 @@ jobs:
           python -m pip install -e ."[test]"
 
       - name: Check syntax
-        run: python -m py_compile coin_game.py
+        run: |
+          python -m py_compile coin_game.py
+          python -m py_compile tools/export_onnx.py
 
       - name: Run tests
         run: pytest -q
