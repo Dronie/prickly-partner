@@ -26,3 +26,8 @@ py-modules = ["coin_game"]
 test = [
   "pytest>=8,<9",
 ]
+
+onnx = [
+  "onnx",
+  "onnxruntime",
+]
