@@ -1,0 +1,140 @@
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #292720;
+  background: #e9e3d6;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button { font: inherit; }
+
+#app {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.play-button {
+  border: 0;
+  border-radius: 999px;
+  padding: 22px 54px;
+  color: white;
+  background: #292720;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  box-shadow: 0 16px 36px rgb(38 34 27 / 20%);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.play-button:hover { transform: translateY(-2px); box-shadow: 0 20px 42px rgb(38 34 27 / 26%); }
+.play-button:focus-visible, .action-button:focus-visible { outline: 4px solid #df9d45; outline-offset: 4px; }
+
+.game-layout {
+  width: min(1120px, 100%);
+  min-height: min(720px, calc(100vh - 48px));
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(300px, 0.9fr);
+  overflow: hidden;
+  border-radius: 28px;
+  background: #fffdf8;
+  box-shadow: 0 24px 70px rgb(48 42 32 / 18%);
+}
+
+.game-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  padding: clamp(24px, 4vw, 52px);
+}
+
+.status-bar, .legend {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  font-weight: 700;
+}
+
+#game-canvas {
+  display: block;
+  width: min(100%, 560px);
+  aspect-ratio: 1;
+  align-self: center;
+  border: 2px solid #332f29;
+  border-radius: 12px;
+  background: #f7f3e9;
+}
+
+.legend { justify-content: center; flex-wrap: wrap; font-size: 0.85rem; color: #676054; }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.marker, .coin { display: inline-block; border: 1px solid #332f29; border-radius: 50%; }
+.marker { width: 15px; height: 15px; }
+.coin { width: 10px; height: 10px; }
+.marker-red { background: #df4545; }
+.marker-blue { background: #4169d8; }
+.coin-red { background: #f1a0a0; }
+.coin-blue { background: #9ab4f2; }
+
+.controls-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 42px;
+  padding: clamp(28px, 5vw, 60px);
+  color: #fffdf8;
+  background: #292720;
+}
+
+.eyebrow { margin: 0 0 8px; color: #e8b66d; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+h1 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 4vw, 3.4rem); font-weight: 500; line-height: 0.98; }
+.instructions { max-width: 32ch; margin: 20px 0 0; color: #c7c0b4; line-height: 1.55; }
+
+.action-grid {
+  display: grid;
+  grid-template: repeat(3, 88px) / repeat(3, 88px);
+  justify-content: center;
+  gap: 10px;
+}
+
+.action-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #71695d;
+  border-radius: 14px;
+  color: #fffdf8;
+  background: #403c35;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: background 120ms ease, transform 120ms ease;
+}
+
+.action-button span { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.action-button:hover:not(:disabled) { background: #625b50; transform: translateY(-2px); }
+.action-button:disabled { cursor: wait; opacity: 0.45; }
+.action-up { grid-area: 1 / 2; }
+.action-left { grid-area: 2 / 1; }
+.action-stay { grid-area: 2 / 2; background: #9a6239; }
+.action-right { grid-area: 2 / 3; }
+.action-down { grid-area: 3 / 2; }
+.turn-message { min-height: 2.8em; margin: 0; color: #e8b66d; line-height: 1.4; text-align: center; }
+
+@media (max-width: 820px) {
+  #app { padding: 0; }
+  .game-layout { min-height: 100vh; grid-template-columns: 1fr; border-radius: 0; }
+  .game-panel { padding-bottom: 26px; }
+  .controls-panel { gap: 24px; }
+  .action-grid { grid-template: repeat(3, 72px) / repeat(3, 72px); }
+}

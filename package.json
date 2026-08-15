@@ -1,5 +1,16 @@
 {
-  "dependencies": {
-    "onnxruntime-web": "^1.27.0"
+  "name": "prickly-partner-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2",
+    "vite": "^7.1.2",
+    "vitest": "^3.2.4"
   }
 }

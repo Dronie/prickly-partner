@@ -9,11 +9,15 @@ __pycache__/
 
 # npm stuff
 node_modules/
+dist/
 
 # Test output
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Frontend notes
+FRONTEND.md
 
 # Operating-system files
 .DS_Store
