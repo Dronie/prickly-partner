@@ -81,3 +81,28 @@ jobs:
 
       - name: Run tests
         run: pytest -q
+
+  web:
+    name: Browser tests and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Download repo
+        uses: actions/checkout@v6
+
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install browser dependencies
+        run: npm ci
+
+      - name: Test browser environment
+        run: npm test
+
+      - name: Build browser application
+        run: npm run build
