@@ -8,6 +8,18 @@ version = "0.1.0"
 description = "Game about a prockly partner"
 requires-python = ">=3.10"
 dependencies = [
+  "numpy==1.26.4",
+  "fastapi",
+  "pydantic>=2,<3",
+  "uvicorn",
+  "onnxruntime",
+]
+
+[tool.setuptools]
+py-modules = ["coin_game"]
+
+[project.optional-dependencies]
+export = [
   "chex==0.1.88",
   "distrax==0.1.5",
   "flax==0.10.3",
@@ -17,23 +29,12 @@ dependencies = [
   "optax==0.2.4",
   "orbax-checkpoint",
   "pygame>=2.5",
+  "onnx"
 ]
 
-[tool.setuptools]
-py-modules = ["coin_game"]
-
-[project.optional-dependencies]
-backend = [
-  "fastapi",
-  "pydantic>=2,<3",
-  "uvicorn",
-  "onnxruntime",
-]
 test = [
   "pytest>=8,<9",
+  "jax==0.4.38",
+  "chex==0.1.88",
 ]
 
-onnx = [
-  "onnx",
-  "onnxruntime",
-]
