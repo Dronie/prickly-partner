@@ -35,5 +35,6 @@ export = [
 test = [
   "pytest>=8,<9",
   "jax==0.4.38",
+  "chex==0.1.88",
 ]
 
