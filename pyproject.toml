@@ -23,6 +23,12 @@ dependencies = [
 py-modules = ["coin_game"]
 
 [project.optional-dependencies]
+backend = [
+  "fastapi",
+  "pydantic>=2,<3",
+  "uvicorn",
+  "onnxruntime",
+]
 test = [
   "pytest>=8,<9",
 ]
