@@ -932,16 +932,20 @@ export = [
     { name = "pygame" },
 ]
 test = [
+    { name = "chex" },
+    { name = "jax" },
     { name = "pytest" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "chex", marker = "extra == 'export'", specifier = "==0.1.88" },
+    { name = "chex", marker = "extra == 'test'", specifier = "==0.1.88" },
     { name = "distrax", marker = "extra == 'export'", specifier = "==0.1.5" },
     { name = "fastapi" },
     { name = "flax", marker = "extra == 'export'", specifier = "==0.10.3" },
     { name = "jax", marker = "extra == 'export'", specifier = "==0.4.38" },
+    { name = "jax", marker = "extra == 'test'", specifier = "==0.4.38" },
     { name = "jaxlib", marker = "extra == 'export'", specifier = "==0.4.38" },
     { name = "numpy", specifier = "==1.26.4" },
     { name = "numpy", marker = "extra == 'export'", specifier = "==1.26.4" },

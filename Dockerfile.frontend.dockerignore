@@ -1,0 +1,15 @@
+.git
+.venv
+node_modules
+dist
+__pycache__
+**/__pycache__
+
+backend
+web/models
+models
+tools
+tests
+coin_game.py
+pyproject.toml
+uv.lock

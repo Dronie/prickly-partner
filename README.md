@@ -1,3 +1,11 @@
+# Prickly Partner
+
+## TODO:
+ - Update this readme
+
+ - Update tests to check against the typescript implementation of coin game instead of the python version
+
+
 # Coin Game Viewer
 
 A standalone version of the JAX coin-game environment and its Pygame viewer.
