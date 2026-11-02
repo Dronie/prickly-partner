@@ -13,6 +13,7 @@ from backend.inference import (
 
 logger = logging.getLogger(__name__)
 
+# define correct structure of data used during inference
 ObservationValue = Annotated[
     int,
     Field(strict=True, ge=0, le=1),
@@ -52,6 +53,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+# POST sends data to the server to process (and generally involves a response)
 @app.post("/api/action", response_model=ActionResponse)
 def get_action(body: ActionRequest, request: Request):
     service = request.app.state.inference
@@ -77,6 +79,7 @@ def get_action(body: ActionRequest, request: Request):
 
     return ActionResponse(action=action)
 
+# GET requests data from the server
 @app.get("/health")
 def health(request: Request):
     loaded_models = len(request.app.state.inference.sessions)

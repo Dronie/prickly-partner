@@ -17,6 +17,7 @@ dependencies = [
 
 [tool.setuptools]
 py-modules = ["coin_game"]
+packages = ["backend"]
 
 [project.optional-dependencies]
 export = [
@@ -36,5 +37,6 @@ test = [
   "pytest>=8,<9",
   "jax==0.4.38",
   "chex==0.1.88",
+  "httpx>=0.28.1",
 ]
 

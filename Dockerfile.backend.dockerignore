@@ -10,7 +10,7 @@ index.html
 package.json
 package-lock.json
 tsconfig.json
-vite.config.json
+vite.config.ts
 
 tests
 tools

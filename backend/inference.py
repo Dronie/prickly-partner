@@ -17,7 +17,7 @@ class InferenceService:
         # ONNX session cache - let's us avoid re-initialising models
         # all the time
         self.sessions = {}
-
+        # get paths of all models
         for agent_id in range(10):
             model_path = (
                 MODEL_DIRECTORY
