@@ -3,9 +3,9 @@
 ## TODO:
  - Update this readme
 
- - Update tests to check against the typescript implementation of coin game instead of the python version
+ - Get rid of local files that are not necessary anymore as we are using docker
 
- - Add some tests for the backend implementations
+ - Update tests to check against the typescript implementation of coin game instead of the python version
 
 # Coin Game Viewer
 
