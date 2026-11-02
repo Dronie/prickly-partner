@@ -5,6 +5,7 @@
 
  - Update tests to check against the typescript implementation of coin game instead of the python version
 
+ - Add some tests for the backend implementations
 
 # Coin Game Viewer
 
