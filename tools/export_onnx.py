@@ -112,8 +112,21 @@ dummy_state = TrainState.create(
     tx=tx
 )
 
-# restore flax checkpoint
-restored_state = checkpoints.restore_checkpoint(absModelPathS, dummy_state)
+# restore flax checkpoint 
+checkpoint_step = 0 # assumes that there is just a single checkpoint to restore at step 0
+checkpoint_path = (Path(absModelPathS) / f"checkpoint_{checkpoint_step}")
+
+# throws a File not found error if the checkpoint path doesn not exist
+if not checkpoint_path.is_dir():
+    raise FileNotFoundError(
+        f"Checkpoint not found at path: {checkpoint_path}"
+    )
+
+restored_state = checkpoints.restore_checkpoint(
+    ckpt_dir=checkpoint_path,
+    target=dummy_state,
+    step=checkpoint_step
+)
 
 actor_params = restored_state.params['params']['actor']
 
@@ -169,7 +182,7 @@ for layer_index in range(hidden_layers+1):
 
 # make onnx model
 onnx_graph = make_graph(nodes=[node0, node1, node2, node3, node4, node5, node6, node7, node8],
-                        name='actor', # a name
+                        name='actor',
                         inputs=[X],
                         outputs=[Y],
                         initializer=onnx_initializers)
@@ -182,7 +195,13 @@ from onnxruntime import InferenceSession
 
 # define extra test cases
 all_zeros = np.zeros_like(init_x).astype(np.int8)
-random = np.random.randint(low=-128, high=127, size=init_x.shape[0], dtype=np.int8)
+rng = np.random.default_rng(0)
+random_input = rng.integers(
+    low=-128,
+    high=127,
+    size=init_x.shape[0],
+    dtype=np.int8
+)
 
 # get flax model outputs on test cases
 flax_all_zeros_out, _ = dummy_state.apply_fn(
