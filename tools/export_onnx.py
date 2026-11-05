@@ -123,7 +123,7 @@ if not checkpoint_path.is_dir():
     )
 
 restored_state = checkpoints.restore_checkpoint(
-    ckpt_dir=checkpoint_path,
+    ckpt_dir=absModelPathS,
     target=dummy_state,
     step=checkpoint_step
 )
@@ -208,7 +208,7 @@ flax_all_zeros_out, _ = dummy_state.apply_fn(
     restored_state.params, all_zeros
 )
 flax_rand_out, _ = dummy_state.apply_fn(
-    restored_state.params, random
+    restored_state.params, random_input
 )
 flax_example_out, _ = dummy_state.apply_fn(
     restored_state.params, init_x
@@ -225,7 +225,7 @@ opset.version=23
 session = InferenceSession(onnx_model.SerializeToString())
 
 onnx_all_zeros_out = np.squeeze(session.run(['Output'], {'Input': np.asarray(all_zeros)}))
-onnx_rand_out = np.squeeze(session.run(['Output'], {'Input': np.asarray(random)}))
+onnx_rand_out = np.squeeze(session.run(['Output'], {'Input': np.asarray(random_input)}))
 onnx_example_out = np.squeeze(session.run(['Output'], {'Input': np.asarray(init_x)}))
 
 # ensure outputs match closely

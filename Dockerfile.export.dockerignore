@@ -1,0 +1,16 @@
+.git
+.venv
+node_modules
+dist
+__pycache__
+**/__pycache__
+
+src
+index.html
+package.json
+package-lock.json
+tsconfig.json
+vite.config.ts
+
+tests
+models
