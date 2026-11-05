@@ -12,6 +12,8 @@ mapfile -d '' FOLDERS < <(find "$SEARCHPATH" -mindepth 1 -maxdepth 1 -type d -pr
 
 echo "Found ${#FOLDERS[@]} folders!"
 
+printf '%s\n' "${#FOLDERS[@]}" > /app/web/models/model-count.txt
+
 for FOLDER in "${FOLDERS[@]}"
 do
   echo "Exporting $FOLDER to ONNX"

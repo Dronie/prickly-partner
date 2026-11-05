@@ -1,0 +1,76 @@
+name: Validate exporter
+on: 
+  pull_request:
+    paths:
+      - 'tools/**'
+      - 'coin_game.py'
+      - 'Dockerfile.export**'
+      - 'pyproject.toml'
+      - 'uv.lock'
+      - '.github/workflows/export.yml'
+
+  workflow_dispatch:
+
+jobs:
+  check-export:
+    name: Check exporter
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Download repo
+        uses: actions/checkout@v6
+
+      - name: Install Docker
+        uses: docker/setup-docker-action@v5
+
+      - name: Build docker image
+        run: docker build -f Dockerfile.export -t exporter .
+
+      - name: Export models
+        run: |
+          mkdir /tmp/export_a
+          mkdir /tmp/export_b
+
+          docker run --rm \
+            --mount type=bind,source="$(pwd)/models",target=/app/models,readonly \
+            --mount type=bind,source="/tmp/export_a",target=/app/web/models \
+            exporter
+
+          docker run --rm \
+            --mount type=bind,source="$(pwd)/models",target=/app/models,readonly \
+            --mount type=bind,source="/tmp/export_b",target=/app/web/models \
+            exporter
+
+      - name: Compare checksums
+        run: |
+          shopt -s nullglob
+          expected_a=$(cat "/tmp/export_a/model-count.txt")
+          expected_b=$(cat "/tmp/export_b/model-count.txt")
+          
+          models_a=("/tmp/export_a/"*.onnx)
+          models_b=("/tmp/export_b/"*.onnx)
+
+          if [ "${#models_a[@]}" -ne "$expected_a" ] || 
+             [ "${#models_b[@]}" -ne "$expected_b" ]; then
+            echo "::error::Exported model counts do not match checkpoint counts."
+            exit 1
+          fi
+
+          if [ "$expected_a" -le 0 ] || [ "$expected_b" -le 0 ]; then
+            echo "::error::No models were found in one or both exports."
+            exit 1
+          fi
+          
+          cd /tmp/export_a
+          find . -type f -name '*.onnx' -exec sha256sum {} + | sort -k 2 | sha256sum > /tmp/export_a.txt
+          
+          cd /tmp/export_b
+          find . -type f -name '*.onnx' -exec sha256sum {} + | sort -k 2 | sha256sum > /tmp/export_b.txt
+
+          cmp /tmp/export_a.txt /tmp/export_b.txt
+
