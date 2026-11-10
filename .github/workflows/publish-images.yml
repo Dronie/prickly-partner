@@ -1,0 +1,53 @@
+name: Publish container images
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    name: Publish ${{ matrix.component }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # create two parallel jobs for both images
+    strategy:
+      matrix:
+        component: [frontend, backend]
+
+    steps:
+      - name: Download repo
+        uses: actions/checkout@v6
+
+      - name: Log in to GitHub Container Registry
+        env:
+          GH_TOKEN: $ {{ secrets.GITHUB_TOKEN }}
+        run: |
+          printf '%s' "$GH_TOKEN"
+            docker login ghcr.io \
+              --username "${{ github.actor }}" \
+              --password-stdin
+
+      - name: Build and publish image
+        env:
+          REPOSITORY: ${{ github.repository }}
+          COMMIT_SHA: ${{ github.sha }}
+          COMPONENT: ${{ matrix.component }}
+        run: |
+          image="ghcr.io/${REPOSITORY,,}-${COMPONENT}"
+          tag="sha-${COMMIT_SHA}"
+
+          docker build \
+            --platform linux/amd6 \
+            --file "Dockerfile.${COMPONENT}" \
+            --label "org.opencintainers.image.source=https://github.com/${REPOSITORY}" \
+            --label "org.opencontainers.image.revision=${COMMIT_SHA}" \
+            --tag "${image}:${tag}" \
+            .
+
+          docker push "${image}:${tag}"
+
+          echo "Published ${image}:${tag}" >> "$GITHUB_STEP_SUMMARY"
+
