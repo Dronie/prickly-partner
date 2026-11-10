@@ -25,7 +25,7 @@ jobs:
         env:
           GH_TOKEN: $ {{ secrets.GITHUB_TOKEN }}
         run: |
-          printf '%s' "$GH_TOKEN"
+          printf '%s' "$GH_TOKEN" |
             docker login ghcr.io \
               --username "${{ github.actor }}" \
               --password-stdin
@@ -40,9 +40,9 @@ jobs:
           tag="sha-${COMMIT_SHA}"
 
           docker build \
-            --platform linux/amd6 \
+            --platform linux/amd64 \
             --file "Dockerfile.${COMPONENT}" \
-            --label "org.opencintainers.image.source=https://github.com/${REPOSITORY}" \
+            --label "org.opencontainers.image.source=https://github.com/${REPOSITORY}" \
             --label "org.opencontainers.image.revision=${COMMIT_SHA}" \
             --tag "${image}:${tag}" \
             .
