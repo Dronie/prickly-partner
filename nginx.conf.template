@@ -7,13 +7,13 @@ server {
 
     # Forward API requests to the Python backend.
     location /api/ {
-        proxy_pass http://backend:8000;
+        proxy_pass http://${BACKEND_ADDRESS};
         proxy_set_header Host $host;
     }
 
     # Allow checking backend health through Nginx.
     location = /health {
-        proxy_pass http://backend:8000;
+        proxy_pass http://${BACKEND_ADDRESS};
     }
 
     # Serve the built frontend files.

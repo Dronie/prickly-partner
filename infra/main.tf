@@ -7,136 +7,107 @@ resource "azurerm_resource_group" "rg" {
   name     = random_pet.rg_name.id
 }
 
-# Create virtual network
-resource "azurerm_virtual_network" "pp_net" {
-  name                = "ppNet"
-  address_space       = ["10.0.0.0/16"]
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-}
-
-# Create subnet
-resource "azurerm_subnet" "pp_subnet" {
-  name                 = "ppSubnet"
-  resource_group_name  = azurerm_resource_group.rg.name
-  virtual_network_name = azurerm_virtual_network.pp_net.name
-  address_prefixes     = ["10.0.1.0/24"]
-}
-
-# Create public IPs
-resource "azurerm_public_ip" "pp_ip" {
-  name                = "ppIP"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-  allocation_method   = "Static"
-  sku                 = "Standard"
-}
-
-# Create Network Security Group and rule
-resource "azurerm_network_security_group" "pp_nsg" {
-  name                = "ppNetworkSecurityGroup"
+# Stores application and platform logs.
+resource "azurerm_log_analytics_workspace" "logs" {
+  name                = "pp-logs"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
-  security_rule {
-    name                       = "SSH"
-    priority                   = 1001
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "22"
-    source_address_prefix      = var.ssh_allowed_cidr
-    destination_address_prefix = "*"
-  }
-
-  security_rule {
-    name                       = "Web"
-    priority                   = 1002
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_ranges    = ["80", "443"]
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
+  sku               = "PerGB2018"
+  retention_in_days = 30
 }
 
-# Create network interface
-resource "azurerm_network_interface" "pp_nic" {
-  name                = "ppNIC"
+# provides the container app infrastructure
+resource "azurerm_container_app_environment" "pp" {
+  name                = "pp-env"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
-  ip_configuration {
-    name                          = "pp_nic_config"
-    subnet_id                     = azurerm_subnet.pp_subnet.id
-    private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.pp_ip.id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.logs.id
+  # Sets a consumption profile for serverless hosting.
+  workload_profile {
+    name                  = "Consumption"
+    workload_profile_type = "Consumption"
+    minimum_count         = 0
+    maximum_count         = 0
   }
 }
 
-# Connect the security group to the network interface
-resource "azurerm_network_interface_security_group_association" "pp_NISGA" {
-  network_interface_id      = azurerm_network_interface.pp_nic.id
-  network_security_group_id = azurerm_network_security_group.pp_nsg.id
-}
+resource "azurerm_container_app" "pp" {
+  name                         = "prickly-partner"
+  resource_group_name          = azurerm_resource_group.rg.name
+  container_app_environment_id = azurerm_container_app_environment.pp.id
 
-# Generate random text for a unique storage account name
-resource "random_id" "random_id" {
-  keepers = {
-    # Generate a new ID only when a new resource group is defined
-    resource_group = azurerm_resource_group.rg.name
+  revision_mode         = "Single"
+  workload_profile_name = "Consumption"
+
+  ingress {
+    external_enabled           = true
+    allow_insecure_connections = false
+    target_port                = 80
+    transport                  = "auto"
+
+    traffic_weight {
+      latest_revision = true
+      percentage      = 100
+    }
   }
 
-  byte_length = 8
-}
+  template {
+    min_replicas = 0
+    max_replicas = 1
 
-# Create storage account for boot diagnostics
-resource "azurerm_storage_account" "pp_storage_account" {
-  name                     = "diag${random_id.random_id.hex}"
-  location                 = azurerm_resource_group.rg.location
-  resource_group_name      = azurerm_resource_group.rg.name
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-}
+    http_scale_rule {
+      name                = "http-requests"
+      concurrent_requests = "10"
+    }
 
-# Create virtual machine
-resource "azurerm_linux_virtual_machine" "pp_vm" {
-  name                  = "ppVM"
-  location              = azurerm_resource_group.rg.location
-  resource_group_name   = azurerm_resource_group.rg.name
-  network_interface_ids = [azurerm_network_interface.pp_nic.id]
-  size                  = "Standard_B1ms"
+    container {
+      name   = "frontend"
+      image  = var.frontend_image
+      cpu    = 0.25
+      memory = "0.5Gi"
 
-  os_disk {
-    name                 = "ppOsDisk"
-    caching              = "ReadWrite"
-    storage_account_type = "StandardSSD_LRS"
-    disk_size_gb         = 32
+      env {
+        name  = "BACKEND_ADDRESS"
+        value = "127.0.0.1:8000"
+      }
+
+      readiness_probe {
+        transport               = "HTTP"
+        port                    = 80
+        path                    = "/"
+        interval_seconds        = 10
+        timeout                 = 3
+        success_count_threshold = 1
+      }
+    }
+
+    container {
+      name   = "backend"
+      image  = var.backend_image
+      cpu    = 0.25
+      memory = "0.5Gi"
+
+      startup_probe {
+        transport               = "HTTP"
+        port                    = 8000
+        path                    = "/health"
+        interval_seconds        = 10
+        timeout                 = 3
+        failure_count_threshold = 10
+      }
+
+      readiness_probe {
+        transport               = "HTTP"
+        port                    = 8000
+        path                    = "/health"
+        interval_seconds        = 10
+        timeout                 = 3
+        success_count_threshold = 1
+      }
+    }
   }
-
-  source_image_reference {
-    publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-jammy"
-    sku       = "22_04-lts-gen2"
-    version   = "latest"
-  }
-
-  computer_name  = "hostname"
-  admin_username = var.username
-
-  admin_ssh_key {
-    username   = var.username
-    public_key = azapi_resource_action.ssh_public_key_gen.output.publicKey
-  }
-
-  boot_diagnostics {
-    storage_account_uri = azurerm_storage_account.pp_storage_account.primary_blob_endpoint
-  }
-
-  custom_data = filebase64("${path.module}/cloud-init.yaml")
 }
 
 

@@ -3,6 +3,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.frontend
+    environment:
+      BACKEND_ADDRESS: "backend:8000"
     ports:
       - "127.0.0.1:8080:80"
     depends_on:

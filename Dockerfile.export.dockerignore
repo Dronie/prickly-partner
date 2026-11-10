@@ -15,3 +15,4 @@ vite.config.ts
 tests
 models
 infra
+vm_infra

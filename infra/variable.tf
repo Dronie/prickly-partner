@@ -7,16 +7,15 @@ variable "resource_group_location" {
 variable "resource_group_name_prefix" {
   type        = string
   default     = "rg"
-  description = "Prefix of the resource group name that's combined with a random ID so name is unique in the Azure subscription."
+  description = "Prefix of the resource group name."
 }
 
-variable "username" {
+variable "frontend_image" {
   type        = string
-  default     = "azureadmin"
-  description = "The username for the local account that will be created on the new VM."
+  description = "Full GHCR frontend image address, including tag or digest"
 }
 
-variable "ssh_allowed_cidr" {
+variable "backend_image" {
   type        = string
-  description = "Public IP allowed to connect over SSH, followed by /32."
+  description = "Full GHCR backend image address, including tag or digest"
 }
