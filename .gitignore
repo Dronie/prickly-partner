@@ -21,3 +21,14 @@ FRONTEND.md
 
 # Operating-system files
 .DS_Store
+
+# Terraform local files
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+*.tfvars.json
+
+# Old Infrastructure code
+infra_old/

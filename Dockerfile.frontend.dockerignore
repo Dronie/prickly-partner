@@ -13,3 +13,5 @@ tests
 coin_game.py
 pyproject.toml
 uv.lock
+
+infra
