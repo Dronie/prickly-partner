@@ -69,6 +69,23 @@ Open the URL printed by Vite. It updates the page as you edit and proxies `/api`
 
 Build the production frontend with `npm run build`. Output is written to `dist/`.
 
+## Edit the profile page
+
+The homepage uses the Start Bootstrap Resume template supplied in
+`resume_template/startbootstrap-resume/`. Edit `index.html` for profile text,
+CV sections and project links. Experience, education, interests and awards
+contain placeholders to replace with your own details. The portrait is `me.jpg`.
+
+`src/home.ts` loads `src/home.css`, the template's original compiled stylesheet
+(including Bootstrap). `public/resume/scripts.js` retains its scroll tracking and
+mobile-menu behaviour. The template's Bootstrap JavaScript, Font Awesome icons
+and Google Fonts still load from external CDNs. Its MIT licence is preserved in
+`public/resume/LICENSE.txt`.
+
+The game has its own page at `/play/`, with `play/index.html`, `src/main.ts` and
+`src/style.css`. Profile styles do not load on the game page. Vite builds both
+HTML entry points; Nginx serves both from the same frontend image.
+
 ## How it works
 
 ```text

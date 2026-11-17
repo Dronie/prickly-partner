@@ -1,13 +1,299 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Play Coin Game against a trained AI partner." />
-    <title>Prickly Partner</title>
-  </head>
-  <body>
-    <main id="app"></main>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Personal profile and projects of Stefan Roesch." />
+        <meta name="author" content="Stefan Roesch" />
+        <title>Stefan Roesch</title>
+        <link rel="icon" type="image/x-icon" href="/resume/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Devicon icons -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css"/>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <script type="module" src="/src/home.ts"></script>
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                <span class="d-block d-lg-none">Stefan Roesch</span>
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="/me.jpg" alt="Stefan Roesch" /></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">Experience</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">Education</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#interests">Interests</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Page Content-->
+        <main class="container-fluid p-0">
+            <!-- About-->
+            <section class="resume-section" id="about">
+                <div class="resume-section-content">
+                    <h1 class="mb-0">
+                        Stefan
+                        <span class="text-primary">Roesch</span>
+                    </h1>
+                    <div class="subheading mb-5">Aspiring Machine learning Engineer · Software Developer · PhD Candidate</div>
+                    <p class="lead mb-5">
+                      An experienced machine learning researcher and practitioner looking for his next big opportunity in industry! Scroll down for more info on my technical background and please do reach out for a chat!
+                    </p>
+                    <div class="social-icons">
+                        <a class="social-icon" href="https://github.com/Dronie" aria-label="Stefan Roesch on GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+                        <a class="social-icon" href="https://www.linkedin.com/in/stefan-roesch-950a5b205/" aria-label="Stefan Roesch on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Projects-->
+            <section class="resume-section" id="projects">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Projects</h2>
+                    <div class="d-flex flex-column flex-md-row justify-content-between">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Prickly Partner</h3>
+                            <div class="subheading mb-3">Reinforcement learning · Model inference · Cloud deployment</div>
+                            <p>A coin-collecting game where you choose whether to collect your own coins or take your partner's. Play against a trained policy served through FastAPI and ONNX Runtime, with a TypeScript frontend and Terraform-managed Azure infrastructure.</p>
+                        <div class="subheading mb-3">Project stack</div>
+                          <ul class="fa-ul mb-4">
+                            <li><span class="fa-li"><i class="fas fa-check" aria-hidden="true"></i></span>Python, FastAPI and ONNX Runtime</li>
+                            <li><span class="fa-li"><i class="fas fa-check" aria-hidden="true"></i></span>Docker, GitHub Actions and Terraform</li>
+                            <li><span class="fa-li"><i class="fas fa-check" aria-hidden="true"></i></span>Azure Container Apps</li>
+                            <li><span class="fa-li"><i class="fas fa-check" aria-hidden="true"></i></span>TypeScript, Vite and NGINX</li>
+                          </ul>
+                          <a class="btn btn-primary me-3 mb-2" href="/play/">Play the game</a>
+                          <a class="btn btn-outline-primary mb-2" href="https://github.com/Dronie/prickly-partner">View source code</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Experience-->
+            <section class="resume-section" id="experience">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Experience</h2>
+                    <!-- Replace the placeholders below with your CV details. -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Achieving Cooperation via Partner Choice in Markov Games</h3>
+                            <div class="subheading mb-3">Research Lead · King's College London</div>
+                            <ul>
+                              <li>Designed and implemented a vectorised, Proximal Policy Optimisation pipeline for training populations of deep reinforcement learning agents with Python and JAX.</li>
+                              <li>Developed a dynamic policy-update method that adapts agent training according to connectivity within a population.</li>
+                              <li>Designed and ran GPU-accelerated experiments on NVIDIA L4 instances on Google Cloud.</li>
+                              <li>Analysed agent behavioral data to evaluate cooperation, robustness and convergence across experimental conditions.</li>
+                            </ul>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">September 2024 - September 2026</span></div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Learning Cooperation Without Strategic Complexity via Partner Choice</h3>
+                            <div class="subheading mb-3">Research Lead · King's College London</div>
+                            <ul>
+                              <li>Implemented the REINFORCE policy-gradient algorithm from first principles in Python and JAX, using vectorised operations and GPU parallelisation.</li>
+                              <li>Designed a partner-choice methodology that induced cooperation in sequential social dilemmas while substantially reducing the strategic complexity required by previous approaches.</li>
+                              <li>Developed reproducible experimental pipelines for training runs on NVIDIA L4 infrastructure in Google Cloud.</li>
+                              <li>Evaluated learned policies using behavioural, game-theoretic and population-level performance metrics.</li>
+                              <li>Presented the research at 3 workshops hosted by major artificial intelligence and economics conferences.</li>
+                            </ul>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">August 2023 - August 2026</span></div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">The Selfishness Level of Social Dilemmas</h3>
+                            <div class="subheading mb-3">Research Lead · King's College London</div>
+                            <ul>
+                              <li>Developed a deep reinforcement learning experimentation pipeline in Python using Stable-Baselines3 and PyTorch, deployed on a high-performance computing cluster.</li>
+                              <li>Applied a game-theoretic metric, the selfishness level, to analyse spatially and temporally complex multi-agent social dilemmas.</li>
+                              <li>Designed and executed experiments measuring how reward subsidisation affected individual behaviour and group-level performance.</li>
+                              <li>Identified a non-linear relationship between subsidy levels and collective performance, providing new insights into incentive design in multi-agent systems.</li>
+                              <li>Contributed to a peer-reviewed publication at a major artificial intelligence conference and presented the findings at an associated workshop.</li>
+                            </ul>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">January 2023 - December 2023</span></div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Program Committee Member</h3>
+                            <div class="subheading mb-3">AAMAS, IJCAI, AAAI</div>
+                            <ul>
+                              <li>Peer reviewed (~18) academic papers and communicated with other PC members to make decisions on the acceptance of academic papers to the main tracks of these venues.</li>
+                            </ul>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">2024, 2025, 2026</span></div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Graduate Teaching Assistant</h3>
+                            <div class="subheading mb-3">King's College London</div>
+                            <ul>
+                              <li>Prepared and delivered 1 hour classroom-style teaching for the Biologically Inspired Methods module.</li>
+                              <li>Communicated complex ideas, related to combinatorial optimisation, to groups of ~15 undergraduate and graduate students receiving very positive student feedback.</li>
+                            </ul>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">October 2022 - June 2023</span></div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Research Intern</h3>
+                            <div class="subheading mb-3">Royal Brompton Hospital, South Kensington</div>
+                            <ul>
+                              <li>Investigated the  use of Deep Convolutional Generative Artificial Networks in the generation of synthetic datasets.</li>
+                              <li>Aimed to mitigate the effects of skewed datasets in the detection of corrupt cardiovascular Diffusion Tensor Images.</li>
+                              <li>Worked with NHS staff who supplied an anonymised real-world dataset of in-patient DTIs.</li>
+                            </ul>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">June 2019 - September 2019</span></div>
+                    </div>
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Education-->
+            <section class="resume-section" id="education">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Education</h2>
+                    <div class="d-flex flex-column flex-md-row justify-content-between">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">King's College London</h3>
+                            <div class="subheading mb-3">PhD Computer Science (Viva Pending)</div>
+                            <ul>
+                              <li><b>Research Focus</b>: Inducing the Learning of Cooperative Policies within Mixed Motive Markov Games via Multi-Agent Reinforcement Learning</li>
+                              <li>Prepared and pitched my own research proposal winning a competitive studentship of ~£160k from the UKRI Center for Doctoral Training in Safe and Trusted AI gaining 4 years of experience in designing and implementing ML systems and rigorous communication skills.</li>
+                            </ul>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">September 2022 - September 2026</span></div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">King's College London</h3>
+                            <div class="subheading mb-3">MSc Artificial Intelligence (Distinction)</div>
+                            <ul>
+                              <li><b>Dissertation Topic</b>: Reinforcement Learning for Autonomous Resource Allocation in D2D Communication (<b>Distinction</b>)</li>
+                              <li><b>Selected Modules</b>: Pattern Recognition, Neural Networks and Deep Learning; Machine Learning; Big Data Technologies (Including extensive use of SQL).</li>
+                            </ul>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">September 2019 - August 2020</span></div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Goldsmiths, University of London</h3>
+                            <div class="subheading mb-3">BSc Games Programming (2:1)</div>
+                            <ul>
+                              <li><b>Dissertation Topic</b>: Learning to play Atari Breakout from high-level sensory inputs via Deep Q-Learning (<b>Distinction</b>)</li>
+                            </ul>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">September 2016 - August 2019</span></div>
+                    </div>
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Skills-->
+            <section class="resume-section" id="skills">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Skills</h2>
+                    <div class="subheading mb-3">Programming Languages and Tools</div>
+                    <ul class="list-inline dev-icons">
+                      
+                      <li class="list-inline-item skill-item" title="Machine Learning"><i class="fas fa-brain" aria-hidden="true"></i><span class="skill-label">Machine Learning</span></li>
+                      <li class="list-inline-item skill-item" title="Reinforcement Learning"><i class="fas fa-robot" aria-hidden="true"></i><span class="skill-label">Reinforcement Learning</span></li>
+                      <li class="list-inline-item skill-item" title="Deep Learning"><i class="fas fa-diagram-project" aria-hidden="true"></i><span class="skill-label">Deep Learning</span></li>
+                      
+                      <li class="list-inline-item skill-item" title="Python"><i class="fab fa-python" aria-hidden="true"></i><span class="skill-label">Python</span></li>
+                      <li class="list-inline-item skill-item" title="NumPy"><i class="devicon-numpy-plain" aria-hidden="true"></i><span class="skill-label">NumPy</span></li>
+                      <li class="list-inline-item skill-item" title="Pandas"><i class="devicon-pandas-plain" aria-hidden="true"></i><span class="skill-label">Pandas</span></li>
+                      <li class="list-inline-item skill-item" title="Scikit-learn"><i class="devicon-scikitlearn-plain" aria-hidden="true"></i><span class="skill-label">Scikit-learn</span></li>
+                      <li class="list-inline-item skill-item" title="SQL"><i class="fas fa-database" aria-hidden="true"></i><span class="skill-label">SQL</span></li>
+                      <li class="list-inline-item skill-item" title="Git"><i class="fab fa-git-alt" aria-hidden="true"></i><span class="skill-label">Git</span></li>
+                      <li class="list-inline-item skill-item" title="Google Cloud"><i class="devicon-googlecloud-plain" aria-hidden="true"></i><span class="skill-label">Google Cloud</span></li>
+                      <li class="list-inline-item skill-item" title="Azure"><i class="devicon-azure-plain" aria-hidden="true"></i><span class="skill-label">Azure</span></li>
+                      <li class="list-inline-item skill-item" title="Docker"><i class="fab fa-docker" aria-hidden="true"></i><span class="skill-label">Docker</span></li>
+                      <li class="list-inline-item skill-item" title="Github Actions"><i class="devicon-githubactions-plain" aria-hidden="true"></i><span class="skill-label">Github Actions</span></li>
+                      <li class="list-inline-item skill-item" title="Terraform"><i class="devicon-terraform-plain" aria-hidden="true"></i><span class="skill-label">Terraform</span></li>
+                      <li class="list-inline-item skill-item" title="Linux"><i class="fab fa-linux" aria-hidden="true"></i><span class="skill-label">Linux</span></li>
+                      <li class="list-inline-item skill-item" title="MATLAB"><i class="devicon-matlab-plain" aria-hidden="true"></i><span class="skill-label">MATLAB</span></li>
+                      <li class="list-inline-item skill-item" title="Javascript"><i class="fab fa-js" aria-hidden="true"></i><span class="skill-label">JavaScript</span></li>
+                      <li class="list-inline-item skill-item" title="Zig"><i class="devicon-zig-original" aria-hidden="true"></i><span class="skill-label">Zig</span></li>
+                      <li class="list-inline-item skill-item" title="C#"><i class="devicon-csharp-plain" aria-hidden="true"></i><span class="skill-label">C#</span></li>
+                      <li class="list-inline-item skill-item" title="Java"><i class="fab fa-java" aria-hidden="true"></i><span class="skill-label">Java</span></li>
+                      <li class="list-inline-item skill-item" title="HTML"><i class="fab fa-html5" aria-hidden="true"></i><span class="skill-label">HTML</span></li>
+                    </ul>
+                    
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Interests-->
+            <section class="resume-section" id="interests">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Interests</h2>
+                    <p class="mb-0">My BSc in Games Programming illustrates my lifelong passion for gaming. During my degree I worked on a small project which can be seen <a href="https://dronie.itch.io/o-neir-i">here</a>. For those interested in some great recommendations, I am currently playing through <a href="https://en.wikipedia.org/wiki/System_Shock_2">System Shock 2</a>, <a href="https://en.wikipedia.org/wiki/Mina_the_Hollower">Mina the Hollower</a> and, <a href="https://en.wikipedia.org/wiki/Starfield_(video_game)">Starfield</a></p>
+                    <p class="mb-0">I also love music and have played bass guitar from the age of 14. I have also performed with multiple bands including an <a href="https://safeandtrustedai.org/stai-cdt-at-kings-festival-of-ai-synthetica-the-future-of-music/">AI outreach project</a> and a performance at <a href="https://allsortsoftunes.com/">AllSorts festival</a> in 2025.</p>
+                </div>
+            </section>
+            <section class="resume-section" id="contact">
+              <div class="resume-section-content">
+                <h2 class="mb-5">Contact</h2>
+
+                <form id="contact-form" action="https://formspree.io/f/mdeggdwn" method="POST">
+                  <div class="mb-3">
+                    <label class="form-label" for="contact-name">Your name</label>
+                    <input
+                      class="form-control"
+                      id="contact-name"
+                      name="name"
+                      type="text"
+                      autocomplete="name"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="contact-email">Your email</label>
+                    <input
+                      class="form-control"
+                      id="contact-email"
+                      name="email"
+                      type="email"
+                      autocomplete="email"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="contact-message">Message</label>
+                    <textarea
+                      class="form-control"
+                      id="contact-message"
+                      name="message"
+                      rows="6"
+                      required
+                      ></textarea>
+                  </div>
+
+                  <button class="btn btn-primary" type="submit">
+                    Send message
+                  </button>
+                  <p id="contact-status" class="mt-3" role="status"></p>
+                </form>
+              </div>
+            </section>
+        </main>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="/resume/scripts.js"></script>
+    </body>
 </html>

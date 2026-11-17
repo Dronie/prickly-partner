@@ -1,6 +1,15 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      input: {
+        home: "index.html",
+        play: "play/index.html",
+      },
+    },
+  },
+
   server: {
     proxy: {
       "/api": {
