@@ -148,7 +148,10 @@ jobs:
         run: |
           curl -fsS --max-time 10 \
             http://localhost:8080/ -o /tmp/frontend.html
-          grep -Fq '<title>Prickly Partner</title>' /tmp/frontend.html
+          grep -Fq '<title>Stefan Roesch</title>' /tmp/frontend.html
+          curl -fsS --max-time 10 \
+            http://localhost:8080/play/ -o /tmp/game.html
+          grep -Fq '<title>Prickly Partner</title>' /tmp/game.html
 
       - name: Check valid inference
         run: |

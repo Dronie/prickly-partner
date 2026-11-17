@@ -19,11 +19,6 @@ let state: CoinGameState | null = null;
 let totalRewards = { red: 0, blue: 0 };
 let turnPending = false;
 
-function showStartScreen(): void {
-  getApp().innerHTML = `<button class="play-button" id="play-now" type="button">Play Now</button>`;
-  document.querySelector<HTMLButtonElement>("#play-now")?.addEventListener("click", startGame);
-}
-
 function startGame(): void {
   state = createInitialState();
   totalRewards = { red: 0, blue: 0 };
@@ -117,4 +112,4 @@ async function takeTurn(playerAction: Action): Promise<void> {
   }
 }
 
-showStartScreen();
+startGame();
